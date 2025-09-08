@@ -157,4 +157,35 @@ Before:
 After:
 	SELECT matnr werks lgort labst FROM nsdm_v_mard
        INTO TABLE lt_mard
-       WHERE matnr = lv_matnr.  " Added By PwcYYYY-MM-DD
+       WHERE matnr = lv_matnr.  " Added By PwcYYYY-MM-
+
+
+Rule 8 — Do not use DESCRIBE FIELD/TABLE/LINES; use strlen( ) function instead.
+-----------------------------------------------------------------------------------
+What to do:
+-Replace any use of DESCRIBE FIELD ... LENGTH, DESCRIBE TABLE ... LINES, or other DESCRIBE statements that attempt to determine the length of a string or the number of entries, with safer and more dynamic alternatives.
+-For string length, use the standard ABAP function strlen( ) to determine the actual runtime length.
+-For table lines, use the built-in function lines( ).
+
+Examples:
+Before (Detecting String Length):
+  DESCRIBE FIELD lv_matnr LENGTH lv_len.
+    IF lv_len = 18.
+      " ... some logic ...
+    ENDIF.
+
+After (Correct Usage with strlen):
+	IF strlen( lv_matnr ) = 18.
+    " ... some logic ...
+  ENDIF.   " Added By PwcYYYY-MM-DD
+
+Before (Counting Internal Table Lines):
+  DESCRIBE TABLE lt_matnr LINES lv_lines.
+  IF lv_lines > 0.
+    " ... some logic ...
+  ENDIF.
+
+After (Correct Usage with lines( )):
+  IF lines( lt_matnr ) > 0.
+    " ... some logic ...
+  ENDIF.   " Added By PwcYYYY-MM-DD
