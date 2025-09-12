@@ -129,8 +129,8 @@ def remediate_with_rag(unit: Unit) -> str:
     if not unit.llm_prompt:
         raise HTTPException(status_code=400, detail="llm_prompt must be a non-empty list of instructions.")
 
-    # Retrieve top-k rule chunks
-    ruleset_loader = TextLoader("ruleset.txt")
+    # Retrieve top-k rule chunks    
+    ruleset_loader = TextLoader("ruleset.txt", encoding="utf-8")
     documents = ruleset_loader.load()
 
 # Split Rules into Chunks
@@ -142,7 +142,7 @@ def remediate_with_rag(unit: Unit) -> str:
     docs = text_splitter.split_documents(documents)
     rules_text =  "\n\n".join([doc.page_content for doc in docs])
 
-    llm = ChatOpenAI(model=OPENAI_MODEL, temperature=0.0)
+    llm = ChatOpenAI(model=OPENAI_MODEL, temperature=1)
     payload = {
         "rules": rules_text or "No rules retrieved.",
         "pgm_name": unit.pgm_name,

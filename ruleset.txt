@@ -189,3 +189,47 @@ After (Correct Usage with lines( )):
   IF lines( lt_matnr ) > 0.
     " ... some logic ...
   ENDIF.   " Added By PwcYYYY-MM-DD
+
+
+Rule 9 — Do not use offset/length notation (e.g. wa-matnr+2(3)); use substring( ) function instead.
+--------------------------------------------------------------------------------------------------
+
+What to do:
+
+-Replace any use of the classic ABAP offset/length substring notation (variable+offset(length)) with the modern string function substring( ), which improves code readability, maintainability, and runtime safety.
+-Declare suitable CHAR variables to receive the substring values before comparing or using them in logic.
+
+Examples:
+
+Before (Direct Offset/Length Comparison):
+" here in 2(3) -> first 2 is the starting position (offset)
+"              -> (3) is the number of characters to read (length)
+IF wa-matnr+2(3) NE wa-ummat+4(3).
+  " ... some logic ...
+ENDIF.
+
+After (Correct Usage with substring):
+DATA : lv_wa_matnr TYPE char3.    " Added By PwcYYYY-MM-DD
+DATA : lv_wa_ummat TYPE char3.    " Added By PwcYYYY-MM-DD
+
+lv_wa_matnr = substring( val = wa_matnr off = 2 len = 3 ).   " Added By PwcYYYY-MM-DD
+lv_wa_ummat = substring( val = wa_ummat off = 4 len = 3 ).   " Added By PwcYYYY-MM-DD
+
+IF lv_wa_matnr NE lv_wa_ummat.     " Added By PwcYYYY-MM-DD
+  " ... some logic ...
+ENDIF.
+
+Before (Offset/Length in SELECT WHERE Clause):
+" here in 2(5) -> first 2 is the starting position (offset)
+"              -> (5) is number of characters to read (length)
+SELECT matnr ummat
+  FROM mara INTO TABLE lt_mara
+  WHERE ummat = ls_mara-ummat+2(5).
+
+After (Correct Usage with substring):
+DATA : lv_ls_ummat TYPE char5.       " Added By PwcYYYY-MM-DD
+lv_ls_ummat = substring( val = ls_mara-ummat off = 2 len = 5 ).  " Added By PwcYYYY-MM-DD
+
+SELECT matnr ummat
+  FROM mara INTO TABLE lt_mara
+  WHERE ummat = lv_ls_ummat.         " Added By PwcYYYY-MM-DD
