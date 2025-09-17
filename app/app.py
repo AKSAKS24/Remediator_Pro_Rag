@@ -19,11 +19,12 @@ from langchain_core.documents import Document
 # =========================
 # Config (env)
 # =========================
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise RuntimeError("OPENAI_API_KEY environment variable is required.")
 
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5")  # e.g., "gpt-5"
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5-nano")  # e.g., "gpt-5-nano"
 CHROMA_DIR   = os.getenv("CHROMA_DIR", "chroma_rules")  # persisted vector store
 
 # Optional LangSmith tracing (if you use it)
@@ -35,7 +36,7 @@ if os.getenv("LANGCHAIN_API_KEY"):
 # =========================
 app = FastAPI(
     title="ABAP Remediator (LLM + Chroma RAG, PwC tagging)",
-    version="2.0"
+    version="2.1"
 )
 
 # =========================
