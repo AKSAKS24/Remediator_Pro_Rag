@@ -71,7 +71,7 @@ After (Correct Usage with lines( )):
   ENDIF.   " Added By PwcYYYY-MM-DD
 
 
-Rule 9 — Do not use offset/length notation (e.g. wa-matnr+2(3)); use substring( ) function instead.
+Rule 4 — Do not use offset/length notation (e.g. wa-matnr+2(3)); use substring( ) function instead.
 --------------------------------------------------------------------------------------------------
 
 What to do:
