@@ -74,10 +74,14 @@ Remediate the ABAP code EXACTLY following the bullet points in 'llm_prompt'.
 Rules you MUST follow:
 - Replace legacy/wrong code with corrected ABAP per the rules and bullets.
 - Output the FULL remediated code (not a diff).
+- Strictly Never end any block explicitly like ( ENDMETHOD, ENDFORM...) Unless present in the code.
 - Every ADDED or MODIFIED line must include an inline ABAP comment at the end of that line:  " Added By Pwc{today_date}
   (Use a single double-quote ABAP comment delimiter.)
 - Keep behavior the same unless the bullets say otherwise.
 - Use ECC-safe syntax unless the bullets allow otherwise.
+- Always Follow Rule 1 for All Select Single statement to convert it Select Endselect.
+- Always follow Rule 5 for any offset (eg: +2(3)), use Substring Function.
+- Always follow Rule 6 for any CONCATENATE used.
 - Return ONLY strict JSON with keys:
 {{
   "remediated_code": "<full updated ABAP code with PwC comments on added/modified lines>"
