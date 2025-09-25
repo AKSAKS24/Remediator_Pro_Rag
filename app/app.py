@@ -24,7 +24,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise RuntimeError("OPENAI_API_KEY environment variable is required.")
 
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5")  # e.g., "gpt-5"
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5-codex")  # e.g., "gpt-5"
 CHROMA_DIR   = os.getenv("CHROMA_DIR", "chroma_rules")  # persisted vector store
 
 # Optional LangSmith tracing (if you use it)
