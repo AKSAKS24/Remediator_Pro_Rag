@@ -13,7 +13,8 @@ After:
   SELECT matnr meins mtart FROM mara
          INTO  wa_mara
          UP TO 1 ROWS
-         WHERE matnr = lv_matnr.  " Added By PwcYYYY-MM-DD
+         WHERE matnr = lv_matnr
+         order by matnr meins mtart.  " Added By PwcYYYY-MM-DD
   ENDSELECT. " Added By PwcYYYY-MM-DD
 
 Before (anti-pattern):
@@ -23,7 +24,8 @@ After:
   SELECT ZP_CUST FROM ZPP_COST
          INTO  wa_COST
          UP TO 1 ROWS
-         WHERE ZP_CUST = lv_CUST. " Added By PwcYYYY-MM-DD
+         WHERE ZP_CUST = lv_CUST
+         order by zp_cust. " Added By PwcYYYY-MM-DD
   ENDSELECT. " Added By PwcYYYY-MM-DD
 
 
